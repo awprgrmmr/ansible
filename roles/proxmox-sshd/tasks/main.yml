@@ -1,0 +1,10 @@
+---
+
+- name: install sshd onto container
+  shell: pct exec {{ proxmox_vmid }} -- bash -c 'yum update -y'
+
+- name: install sshd onto container
+  shell: pct exec {{ proxmox_vmid }} -- bash -c 'yum install -y openssh-server'
+
+- name: install sshd onto container
+  shell: pct exec {{ proxmox_vmid }} -- bash -c 'systemctl start sshd'

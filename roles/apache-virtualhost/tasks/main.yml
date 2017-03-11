@@ -1,0 +1,17 @@
+---
+
+- name: create document root
+  file:
+    path: "/var/www/{{ fqdn }}/{{ item }}"
+    state: directory
+    owner: apache
+    group: apache
+  with_items:
+    - html
+    - logs
+
+- name: create vhost config
+  template:
+      src: virtualhost.conf.j2
+      dest: "/etc/httpd/conf.d/{{ fqdn }}.conf"
+  notify: restart apache

@@ -1,0 +1,6 @@
+---
+
+- name: restart apache
+  yum:
+    name: httpd
+    state: latest

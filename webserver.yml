@@ -1,0 +1,13 @@
+---
+
+- hosts:
+    - webservers
+  vars_prompt:
+    - name: fqdn
+      prompt: Enter FQDN
+      private: no
+  roles:
+    - common
+    - apache
+    - php
+    - apache-virtualhost

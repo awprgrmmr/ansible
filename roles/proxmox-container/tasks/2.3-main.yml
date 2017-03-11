@@ -1,0 +1,29 @@
+---
+
+- name: create container
+  proxmox:
+    vmid: "{{ proxmox_vmid }}"
+    node: apprentice
+    api_user: root@pam
+    api_password: "{{ proxmox_api_password }}"
+    api_host: 192.168.0.100
+    password: "{{ proxmox_password }}"
+    hostname: "{{ proxmox_hostname }}"
+    ostemplate: 'local:vztmpl/centos-7-default_20161207_amd64.tar.xz'
+    disk: 1
+    memory: 256
+    swap: 256
+    netif: '{"net0":"name=eth0,bridge=vmbr0,ip=192.168.0.{{ proxmox_vmid }}/24,gw=192.168.0.1"}'
+    storage: local-lvm
+
+- name: start container
+  proxmox:
+    vmid: "{{ proxmox_vmid }}"
+    api_user: root@pam
+    api_password: "{{ proxmox_api_password }}"
+    api_host: 192.168.0.100
+    state: started
+
+- name: wait 10 seconds for network
+  pause:
+    seconds: 10
