@@ -11,13 +11,3 @@
       private: no
   roles:
     - proxmox-container
-    - proxmox-sshd
-
-- hosts:
-    - 127.0.0.1
-  vars_prompt:
-    - name: proxmox_vmid
-      prompt: VM ID
-      private: no
-  roles:
-    - ssh-copy-id

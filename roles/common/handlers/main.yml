@@ -5,7 +5,7 @@
     name: "{{ item }}"
     state: restarted
   with_items:
-    - yum_cron
+    - yum-cron
 
 - name: restart sshd
   service:

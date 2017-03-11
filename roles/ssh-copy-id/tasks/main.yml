@@ -1,4 +1,0 @@
----
-
-- name: copy identity to client
-  shell: "sshpass -p '{{ proxmox_password }}' ssh-copy-id root@192.168.0.{{ proxmox_vmid }}"

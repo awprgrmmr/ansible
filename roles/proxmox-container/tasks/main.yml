@@ -17,6 +17,12 @@
     api_host: 192.168.0.100
     state: started
 
-- name: wait 10 seconds for network
+- name: wait 5 seconds for network
   pause:
-    seconds: 10
+    seconds: 5
+
+- name: install sshd onto container
+  shell: pct exec {{ proxmox_vmid }} -- bash -c 'yum install -y openssh-server'
+
+- name: start sshd on container
+  shell: pct exec {{ proxmox_vmid }} -- bash -c 'systemctl start sshd'
