@@ -1,0 +1,11 @@
+
+---
+- hosts: test
+  tasks:
+    - name: Install webserver
+      yum:
+        name: "{{item}}"
+        state: latest
+      with_items:
+        - httpd
+        - php

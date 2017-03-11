@@ -1,0 +1,13 @@
+---
+
+- name: security | restart services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - yum_cron
+
+- name: restart sshd
+  service:
+    name: sshd
+    state: restarted
