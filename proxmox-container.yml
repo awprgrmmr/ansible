@@ -2,6 +2,7 @@
 
 - hosts:
     - proxmoxhost
+  gather_facts: no
   vars_prompt:
     - name: proxmox_vmid
       prompt: VM ID
@@ -11,3 +12,10 @@
       private: no
   roles:
     - proxmox-container
+  post_tasks:
+    - add_host: name=192.168.0.{{ proxmox_vmid }} group=unsorted
+
+- hosts: unsorted
+  gather_facts: no
+  roles:
+    - common
