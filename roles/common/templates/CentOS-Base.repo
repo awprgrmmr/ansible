@@ -1,0 +1,17 @@
+[base]
+name=CentOS Base
+baseurl=http://192.168.0.105/repos/base/
+gpgcheck=0
+enabled=1
+
+[updates]
+name=CentOS Updates
+baseurl=http://192.168.0.105/repos/updates/
+gpgcheck=0
+enabled=1
+
+[extras]
+name=CentOS Extras
+baseurl=http://192.168.0.105/repos/extras/
+gpgcheck=0
+enabled=1

@@ -6,8 +6,3 @@
     state: restarted
   with_items:
     - yum-cron
-
-- name: restart sshd
-  service:
-    name: sshd
-    state: restarted

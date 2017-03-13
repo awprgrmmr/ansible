@@ -1,0 +1,25 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars_prompt:
+    - name: lxc_id
+      prompt: ID
+      private: no
+    - name: lxc_hostname
+      prompt: Hostname
+      private: no
+  vars:
+    - lxc_hypervisor: root@192.168.0.100
+    - lxc_template: /var/lib/vz/template/cache/centos-7_20170312.tar.gz
+    - lxc_net_ip: "192.168.0.{{ lxc_id }}/24"
+    - lxc_net_gw: 192.168.0.1
+  roles:
+    - pct-create
+  post_tasks:
+    - add_host: name=192.168.0.{{ lxc_id }} group=unsorted
+
+- hosts: unsorted
+  gather_facts: no
+  roles:
+    - common

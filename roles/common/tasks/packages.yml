@@ -1,10 +1,5 @@
 ---
 
-- name: packages | update
-  yum:
-    name: '*'
-    state: latest
-
 - name: packages | install packages
   yum:
     name: "{{ item }}"
@@ -13,3 +8,4 @@
     - epel-release
     - nano
     - unzip
+    - zip

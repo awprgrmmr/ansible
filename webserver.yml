@@ -3,6 +3,6 @@
 - hosts:
     - webservers
   roles:
-    - common
-    - apache
-    - php
+    - { role: common, tags: common }
+    - { role: apache, tags: apache }
+    - { role: php, tags: php }

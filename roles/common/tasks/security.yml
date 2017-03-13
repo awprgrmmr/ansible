@@ -7,13 +7,17 @@
   with_items:
      - yum-cron
   notify: security | restart services
+#    - fail2ban # Do I need it?
+#    - logwatch
+
 
 - name: security | disable password authentication
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: '^PasswordAuthentication'
     line: 'PasswordAuthentication no'
-  notify: restart sshd
 
-#      - fail2ban # Do I need it?
-#      - logwatch
+- name: securty | restart ssh
+  service:
+    name: sshd
+    state: restarted
