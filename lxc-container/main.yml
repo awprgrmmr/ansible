@@ -32,6 +32,6 @@
     - add_host: hostname="{{ lxc_net_ip }}" groups=lxc-container
 
 - hosts: lxc-container
-  gather_facts: false
+  gather_facts: true
   roles:
     - common
