@@ -1,9 +1,0 @@
----
-
-- name: dns | update nameservers | forward ip
-  lineinfile:
-    path: /etc/named/forward.apprentice.local
-    regexp: "^@\tIN\tA\t{{ ansible_default_ipv4.address }}"
-    line: "@	IN	A	{{ ansible_default_ipv4.address }}"
-  delegate_to: "{{ item }}"
-  with_items: "{{ groups['nameservers'] }}"

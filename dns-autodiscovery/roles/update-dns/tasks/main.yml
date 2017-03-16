@@ -1,0 +1,22 @@
+---
+
+- name: add forward rule
+  blockinfile:
+    path: /etc/named/forward.{{ dns_domain }}
+    block: |
+      {{ hostvars[item].ansible_hostname }}.{{ dns_domain }}.	IN	A	{{ item }}
+    marker: "; {mark} {{ item.split('.')[3] }}"
+  with_items: "{{ hostvars.localhost.hosts.stdout_lines }}"
+
+- name: add reverse rule
+  blockinfile:
+    path: /etc/named/reverse.{{ dns_domain }}
+    block: |
+      {{ item.split('.')[3] }}	IN	PTR	{{ hostvars[item].ansible_hostname }}.{{ dns_domain }}.
+    marker: "; {mark} {{ item.split('.')[3] }}"
+  with_items: "{{ hostvars.localhost.hosts.stdout_lines }}"
+
+- name: restart dns
+  service:
+    name: named
+    state: restarted

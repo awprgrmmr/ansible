@@ -1,0 +1,18 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - nmap-range
+
+- hosts: discovered
+  gather_facts: true
+
+- hosts: dnsservers
+  gather_facts: false
+  vars:
+    dns_domain: theodore.local
+  roles:
+    - update-dns
+

@@ -1,8 +1,0 @@
----
-
-- name: security | restart services
-  service:
-    name: "{{ item }}"
-    state: restarted
-  with_items:
-    - yum-cron

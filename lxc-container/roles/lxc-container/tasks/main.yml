@@ -1,0 +1,23 @@
+- debug: var=lxc_net_ip
+
+- name: deploy lxc container
+  proxmox:
+    api_user: "{{ pve_api_user }}"
+    api_host: "{{ pve_api_host }}"
+    node: "{{ pve_node }}"    
+    vmid: "{{ lxc_vmid }}"
+    hostname: "{{ lxc_hostname }}"
+    pubkey: "{{ lxc_pubkey }}"
+    ostemplate: "{{ lxc_ostemplate }}"
+    cpus: "{{ lxc_cpus }}"
+    disk: "{{ lxc_disk }}"
+    netif: "{'net0':'name=eth0,gw={{ lxc_net_gw }},ip={{ lxc_net_ip }}/{{  lxc_net_subnet }},bridge={{ lxc_net_bridge}}'}"
+    storage: local-lvm
+    state: present
+
+- name: start lxc container
+  proxmox:
+    api_user: "{{ pve_api_user }}"
+    api_host: "{{ pve_api_host }}"
+    vmid: "{{ lxc_vmid }}"
+    state: started
