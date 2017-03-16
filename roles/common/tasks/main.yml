@@ -3,6 +3,7 @@
 - local_action: wait_for port=22 host="{{ inventory_hostname }}"
 
 - include: timezone.yml
+#- include: dns.yml
 #- include: repos.yml
 - include: packages.yml
 - include: security.yml
