@@ -11,8 +11,6 @@
 
 - hosts: discovered
   gather_facts: true
-  roles:
-    - common
 
 - hosts: dnsservers
   gather_facts: false

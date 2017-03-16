@@ -1,5 +1,3 @@
-- debug: var=lxc_net_ip
-
 - name: deploy lxc container
   proxmox:
     api_user: "{{ pve_api_user }}"
@@ -21,3 +19,5 @@
     api_host: "{{ pve_api_host }}"
     vmid: "{{ lxc_vmid }}"
     state: started
+
+- wait_for: host="{{ lxc_net_ip }}" port=22
