@@ -8,6 +8,7 @@
      - yum-cron
 #    - fail2ban
 #    - logwatch
+  notify: security | restart services
   when: ansible_distribution == 'CentOS'
 
 - name: security | disable ssh password authentication
@@ -15,8 +16,4 @@
     dest: /etc/ssh/sshd_config
     regexp: '^PasswordAuthentication'
     line: 'PasswordAuthentication no'
-
-- name: securty | restart ssh
-  service:
-    name: sshd
-    state: restarted
+  notify: restart ssh

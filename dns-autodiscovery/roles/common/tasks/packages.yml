@@ -1,12 +1,13 @@
 ---
 
-- name: update system
+- name: update centos system
   yum:
     name: '*'
     state: latest
+    update_cache: yes
   when: ansible_distribution == 'CentOS'
 
-- name: install common packages
+- name: install common centos packages
   yum:
     name: "{{ item }}"
     state: latest
@@ -17,3 +18,17 @@
     - wget
     - zip
   when: ansible_distribution == 'CentOS'
+
+- name: update debian system
+  apt:
+    update-cache: yes
+    upgrade: dist
+  when: ansible_distribution == 'Debian'
+
+- name: install common debian packages
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - unattended-upgrades
+  when: ansible_distribution == 'Debian'
