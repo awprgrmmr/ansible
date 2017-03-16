@@ -1,0 +1,19 @@
+---
+
+- name: update system
+  yum:
+    name: '*'
+    state: latest
+  when: ansible_distribution == 'CentOS'
+
+- name: install common packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - nano
+    - net-tools
+    - unzip
+    - wget
+    - zip
+  when: ansible_distribution == 'CentOS'

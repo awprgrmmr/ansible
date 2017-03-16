@@ -7,6 +7,7 @@
       {{ hostvars[item].ansible_hostname }}.{{ dns_domain }}.	IN	A	{{ item }}
     marker: "; {mark} {{ item.split('.')[3] }}"
   with_items: "{{ hostvars.localhost.hosts.stdout_lines }}"
+  notify: restart dns
 
 - name: add reverse rule
   blockinfile:
@@ -15,8 +16,4 @@
       {{ item.split('.')[3] }}	IN	PTR	{{ hostvars[item].ansible_hostname }}.{{ dns_domain }}.
     marker: "; {mark} {{ item.split('.')[3] }}"
   with_items: "{{ hostvars.localhost.hosts.stdout_lines }}"
-
-- name: restart dns
-  service:
-    name: named
-    state: restarted
+  notify: restart dns

@@ -1,7 +1,7 @@
 ---
 
 - name: scan ip range
-  shell: nmap -sn 192.168.0.102-254 | grep "^Nmap scan" | sed 's/Nmap scan report for //' | grep "^192.168.0"
+  shell: nmap -sn -n "{{ ip_prefix }}"."{{ ip_range }}" | grep '^Nmap scan' | sed 's/Nmap scan report for //' | grep '^{{ ip_prefix }}'
   register: hosts
 
 - name: add discovered hosts

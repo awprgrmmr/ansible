@@ -1,4 +1,0 @@
----
-
-- name: get hostname
-  set_fact: hostnames="{{ lookup('file', '/etc/hostname') }}"

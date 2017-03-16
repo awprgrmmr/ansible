@@ -1,0 +1,19 @@
+---
+
+- name: security | install packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+     - yum-cron
+#    - fail2ban
+#    - logwatch
+  notify: security | restart services
+  when: ansible_distribution == 'CentOS'
+
+- name: security | disable ssh password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+  notify: restart ssh
