@@ -1,0 +1,38 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: pve_vmid
+      prompt: ID
+      private: no
+    - name: pve_hostname
+      prompt: Hostname
+      private: no
+    - name: pve_os
+      prompt: OS
+      private: no
+      default: centos
+  vars:
+    pve_api_host: 192.168.0.100
+    pve_api_user: root@pam
+    pve_node: apprentice
+    pve_ostemplate: "local:vztmpl/{{ pve_os }}.tar.gz"
+    pve_cpus: 0
+    pve_disk: 1
+    pve_net_gw: 192.168.0.1
+    pve_net_ip: 192.168.0.{{ pve_vmid }}
+    pve_net_subnet: 24
+    pve_net_bridge: vmbr0
+    pve_pubkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+  roles:
+    - pve-container
+    - known_hosts
+  tasks:
+    - add_host: hostname="{{ pve_net_ip }}" groups=created
+
+- hosts: created
+  gather_facts: true
+  roles:
+    - common

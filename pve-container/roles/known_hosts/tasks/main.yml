@@ -1,0 +1,10 @@
+---
+
+- name: scan for public key
+  shell: "ssh-keyscan -t ecdsa {{ pve_net_ip }}"
+  register: keyscan_pubkey
+
+- name: add new host to known_hosts
+  known_hosts:
+    name: "{{ pve_net_ip }}"
+    key: "{{ keyscan_pubkey.stdout }}"

@@ -1,0 +1,23 @@
+- name: deploy container
+  proxmox:
+    api_user: "{{ pve_api_user }}"
+    api_host: "{{ pve_api_host }}"
+    node: "{{ pve_node }}"    
+    vmid: "{{ pve_vmid }}"
+    hostname: "{{ pve_hostname }}"
+    pubkey: "{{ pve_pubkey }}"
+    ostemplate: "{{ pve_ostemplate }}"
+    cpus: "{{ pve_cpus }}"
+    disk: "{{ pve_disk }}"
+    netif: "{'net0':'name=eth0,gw={{ pve_net_gw }},ip={{ pve_net_ip }}/{{  pve_net_subnet }},bridge={{ pve_net_bridge}}'}"
+    storage: local-lvm
+    state: present
+
+- name: start lxc container
+  proxmox:
+    api_user: "{{ pve_api_user }}"
+    api_host: "{{ pve_api_host }}"
+    vmid: "{{ pve_vmid }}"
+    state: started
+
+- wait_for: host="{{ pve_net_ip }}" port=22
