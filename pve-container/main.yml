@@ -35,4 +35,5 @@
 - hosts: created
   gather_facts: true
   roles:
+    - dns
     - common

@@ -12,6 +12,7 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - man
     - nano
     - net-tools
     - unzip
